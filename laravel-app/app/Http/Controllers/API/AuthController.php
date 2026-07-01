@@ -38,7 +38,6 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => 'Password does not match.',
@@ -62,8 +61,8 @@ class AuthController extends Controller
         $user->currentAccessToken()->delete();
 
         // option 2
-        $currentToken = $user->currentAccessToken();
-        $user->tokens()->where('id', $currentToken->id)->delete();
+        // $currentToken = $user->currentAccessToken();
+        // $user->tokens()->where('id', $currentToken->id)->delete();
 
         return response([
             'message' => 'User signed out.'
